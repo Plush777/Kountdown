@@ -1,0 +1,12 @@
+---
+const { className, id, type = 'button', ...dataValue } = Astro.props;
+---
+
+
+<button 
+    type={type} 
+    class={`cursor-pointer ${className}`}
+    id={id}
+    {...dataValue}>
+    <slot />
+</button>

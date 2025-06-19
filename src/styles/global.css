@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Recipekorea";
+  font-display: block;
+  src: url("/fonts/Recipekorea.woff2") format("woff2"),
+    url("/fonts/Recipekorea.woff") format("woff");
+}
