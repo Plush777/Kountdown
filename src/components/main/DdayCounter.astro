@@ -4,11 +4,16 @@ import CounterText from "@/components/main/CounterText.astro"
 
 <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
     <div class="flex flex-col text-center">
-        <div class="flex items-center gap-x-1 text-6xl font-bold mb-4">
-            <CounterText className="text-6xl font-bold tracking-widest" id="dday-text" />
-            <CounterText className="text-6xl font-bold " id="dday-number" />
+        <slot name="title" />
+
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full p-[26px_0] max-w-[500px]">
+            <div class="flex items-center justify-center gap-x-1 mb-2">
+                <CounterText className="text-6xl font-bold font-[Pretendard_Variable] text-black" id="dday-text" />
+                <CounterText className="text-6xl font-bold font-[Pretendard_Variable] text-black" id="dday-number" />
+            </div>
+            <CounterText className="flex justify-center items-center text-3xl font-[Pretendard_Variable] tracking-wide text-[#1d1d1d]" id="time-display" />
         </div>
-        <CounterText className="flex justify-center items-center text-2xl font-medium" id="time-display" />
+       
     </div>
 </div>
 

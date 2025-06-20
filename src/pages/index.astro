@@ -3,11 +3,20 @@ import HtmlLayout from "@/layouts/HtmlLayout.astro"
 import Header from "@/layouts/Header.astro"
 import BackgroundContainer from "@/components/background/BackgroundContainer.astro"
 import DdayCounter from "@/components/main/DdayCounter.astro"
+import Comment from "@/components/main/Comment.astro"
+
+import { Fragment } from "astro/jsx-runtime"
 ---
 
 <HtmlLayout>
 	<Header />
 	<BackgroundContainer>
-		<DdayCounter />
+		<DdayCounter>
+			<Fragment slot="title">
+				<p class="text-white text-center leading-16 text-5xl font-bold font-[Recipekorea] mb-[340px]">Goodbye,<br/>Kartrider Drift</p>
+			</Fragment>
+		</DdayCounter>
+
+		<Comment />
 	</BackgroundContainer>
 </HtmlLayout>
