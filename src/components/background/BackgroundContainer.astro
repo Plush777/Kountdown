@@ -2,8 +2,10 @@
 
 ---
 
-<main class="size-full bg-[url('/images/bg/bg-index.jpg')] bg-cover bg-[center_center] bg-no-repeat relative z-0
+<div
+	class="size-full bg-[url('/images/bg/bg-index.webp')] bg-cover bg-[center_center] bg-no-repeat relative z-0
 before:content-[''] before:absolute before:top-0 before:left-0 before:size-full before:h-full
-before:bg-[rgba(0,0,0,0.45)] before:z-0 before:backdrop-blur-[2px]">
-    <slot />
-</main>
+before:bg-[rgba(0,0,0,0.45)] before:z-0 after:content-['']"
+>
+	<slot />
+</div>

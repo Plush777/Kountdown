@@ -1,22 +1,53 @@
 ---
-import HtmlLayout from "@/layouts/HtmlLayout.astro"
-import Header from "@/layouts/Header.astro"
-import BackgroundContainer from "@/components/background/BackgroundContainer.astro"
-import DdayCounter from "@/components/main/DdayCounter.astro"
-import Comment from "@/components/main/Comment.astro"
+import HtmlLayout from '@/layouts/HtmlLayout.astro';
+import Header from '@/layouts/Header.astro';
+import BackgroundContainer from '@/components/background/BackgroundContainer.astro';
+import DdayCounter from '@/components/main/DdayCounter.astro';
+import Comment from '@/components/main/Comment.astro';
+import MainContainer from '@/components/main/MainContainer.astro';
+import Wrapper from '@/layouts/Wrapper.astro';
+import Inner from '@/layouts/Inner.astro';
+import Text from '@/components/text/Text.astro';
 
-import { Fragment } from "astro/jsx-runtime"
+import { Fragment } from 'astro/jsx-runtime';
 ---
 
 <HtmlLayout>
 	<Header />
-	<BackgroundContainer>
-		<DdayCounter>
-			<Fragment slot="title">
-				<p class="text-white text-center leading-16 text-5xl font-bold font-[Recipekorea] mb-[340px]">Goodbye,<br/>Kartrider Drift</p>
-			</Fragment>
-		</DdayCounter>
+	<MainContainer
+		className="h-[calc(100vh_+_120px)] after:absolute after:bottom-0 after:left-0 after:size-full after:h-[200px] after:rounded-full after:z-[-1] after:bg-white"
+	>
+		<BackgroundContainer>
+			<DdayCounter>
+				<Fragment slot="title">
+					<p
+						class="text-white text-center leading-16 text-5xl font-bold font-[Recipekorea] mb-[400px]"
+					>
+						Goodbye,<br />Kartrider Drift
+					</p>
+				</Fragment>
+			</DdayCounter>
+		</BackgroundContainer>
+		<Wrapper
+			className=" relative z-10 rounded-[120px_120px_0_0] bg-white mt-[-120px] pt-[100px] pb-[20px]"
+		>
+			<Inner>
+				<div class="mb-16">
+					<Text
+						type="h1"
+						className="text-center text-[#1d1d1d] break-keep leading-[1.2] text-5xl font-bold font-[ui-monospace] mb-12"
+					>
+						카트라이더 드리프트 서비스 종료, 어떻게 생각하세요?
+					</Text>
+					<Text
+						type="p"
+						className="text-center text-[#444] break-keep leading-[1.2] text-2xl font-[ui-monospace]"
+						>여러분들의 생각을 자유롭게 남겨주세요.</Text
+					>
+				</div>
 
-		<Comment />
-	</BackgroundContainer>
+				<Comment />
+			</Inner>
+		</Wrapper>
+	</MainContainer>
 </HtmlLayout>

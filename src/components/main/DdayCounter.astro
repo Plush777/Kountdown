@@ -1,67 +1,82 @@
 ---
-import CounterText from "@/components/main/CounterText.astro"
+import CounterText from '@/components/main/CounterText.astro';
 ---
 
 <div class="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
-    <div class="flex flex-col text-center">
-        <slot name="title" />
+	<div class="flex flex-col text-center w-full">
+		<slot name="title" />
 
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-full p-[26px_0] max-w-[500px]">
-            <div class="flex items-center justify-center gap-x-1 mb-2">
-                <CounterText className="text-6xl font-bold font-[Pretendard_Variable] text-black" id="dday-text" />
-                <CounterText className="text-6xl font-bold font-[Pretendard_Variable] text-black" id="dday-number" />
-            </div>
-            <CounterText className="flex justify-center items-center text-3xl font-[Pretendard_Variable] tracking-wide text-[#1d1d1d]" id="time-display" />
-        </div>
-       
-    </div>
+		<div
+			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[rgba(255,255,255,0.8)] h-[156px] rounded-lg
+        w-full p-[26px_0] max-w-[500px]"
+		>
+			<div class="flex items-center justify-center gap-x-1 mb-2">
+				<CounterText
+					className="text-6xl font-bold font-[Pretendard_Variable] text-black"
+					id="dday-text"
+				/>
+				<CounterText
+					className="text-6xl font-bold font-[Pretendard_Variable] text-black"
+					id="dday-number"
+				/>
+			</div>
+			<CounterText
+				className="flex justify-center items-center text-3xl font-[Pretendard_Variable] tracking-wide text-[#1d1d1d]"
+				id="time-display"
+			/>
+		</div>
+	</div>
 </div>
 
 <script>
-    function updateDday() {
-        const targetDate = new Date('2025-10-16T00:00:00');
-        const now = new Date();
-        
-        // 날짜 차이 계산 (시간 제외)
-        const targetDateOnly = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-        const nowDateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        
-        const timeDiff = targetDateOnly.getTime() - nowDateOnly.getTime();
-        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        
-        const ddayText = document.getElementById('dday-text');
-        const ddayNumber = document.getElementById('dday-number');
-        
-        if (daysDiff === 0) {
-            ddayText.textContent = 'D-DAY';
-            ddayNumber.textContent = '';
-        } else if (daysDiff > 0) {
-            ddayText.textContent = 'D-';
-            ddayNumber.textContent = daysDiff.toString();
-        } else {
-            ddayText.textContent = 'D+';
-            ddayNumber.textContent = Math.abs(daysDiff).toString();
-        }
-        
-        // 시간/분/초 계산
-        const totalTimeDiff = targetDate.getTime() - now.getTime();
-        
-        if (totalTimeDiff > 0) {
-            const hours = Math.floor((totalTimeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((totalTimeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((totalTimeDiff % (1000 * 60)) / 1000);
-            
-            const timeDisplay = document.getElementById('time-display');
-            timeDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        } else {
-            const timeDisplay = document.getElementById('time-display');
-            timeDisplay.textContent = '00:00:00';
-        }
-    }
-    
-    // 초기 실행
-    updateDday();
-    
-    // 1초마다 업데이트
-    setInterval(updateDday, 1000);
+	function updateDday() {
+		const targetDate = new Date('2025-10-16T00:00:00');
+		const now = new Date();
+
+		// 날짜 차이 계산 (시간 제외)
+		const targetDateOnly = new Date(
+			targetDate.getFullYear(),
+			targetDate.getMonth(),
+			targetDate.getDate()
+		);
+		const nowDateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+		const timeDiff = targetDateOnly.getTime() - nowDateOnly.getTime();
+		const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+		const ddayText = document.getElementById('dday-text');
+		const ddayNumber = document.getElementById('dday-number');
+
+		if (daysDiff === 0) {
+			ddayText.textContent = 'D-DAY';
+			ddayNumber.textContent = '';
+		} else if (daysDiff > 0) {
+			ddayText.textContent = 'D-';
+			ddayNumber.textContent = daysDiff.toString();
+		} else {
+			ddayText.textContent = 'D+';
+			ddayNumber.textContent = Math.abs(daysDiff).toString();
+		}
+
+		// 시간/분/초 계산
+		const totalTimeDiff = targetDate.getTime() - now.getTime();
+
+		if (totalTimeDiff > 0) {
+			const hours = Math.floor((totalTimeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			const minutes = Math.floor((totalTimeDiff % (1000 * 60 * 60)) / (1000 * 60));
+			const seconds = Math.floor((totalTimeDiff % (1000 * 60)) / 1000);
+
+			const timeDisplay = document.getElementById('time-display');
+			timeDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+		} else {
+			const timeDisplay = document.getElementById('time-display');
+			timeDisplay.textContent = '00:00:00';
+		}
+	}
+
+	// 초기 실행
+	updateDday();
+
+	// 1초마다 업데이트
+	setInterval(updateDday, 1000);
 </script>

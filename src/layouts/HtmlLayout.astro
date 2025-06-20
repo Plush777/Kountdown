@@ -1,5 +1,5 @@
 ---
-import '@/styles/global.css'
+import '@/styles/global.css';
 ---
 
 <!doctype html>
@@ -7,19 +7,28 @@ import '@/styles/global.css'
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Kountdown is a countdown timer for events" />
-		<meta name="keywords" content="카트라이더, 카트라이더 클래식, 카트라이더 드리프트 섭종, 카트라이더 드리프트 서비스 종료, 카트라이더 부활, 카트 클래식, 카트라이더 서비스 종료" />
+		<meta
+			name="keywords"
+			content="카트라이더, 카트라이더 클래식, 카트라이더 드리프트 섭종, 카트라이더 드리프트 서비스 종료, 카트라이더 부활, 카트 클래식, 카트라이더 서비스 종료"
+		/>
 		<meta name="robots" content="index, follow" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+		<link
+			rel="stylesheet"
+			as="style"
+			crossorigin
+			href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+		/>
 		<meta name="generator" content={Astro.generator} />
 		<title>Kountdown</title>
 	</head>
-	<body>
+	<body class="select-none">
 		<div class="h-screen">
 			<slot />
 		</div>
 	</body>
 </html>
-
-

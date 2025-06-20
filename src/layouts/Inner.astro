@@ -1,0 +1,13 @@
+---
+const { maxWidth = '768px', className } = Astro.props;
+
+const maxWidthClasses = {
+	'768px': 'max-w-[768px]'
+};
+
+const maxWidthClass = maxWidthClasses[maxWidth] || 'max-w-[768px]';
+---
+
+<div class={`m-[0_auto] w-full inner ${className} ${maxWidthClass}`}>
+	<slot />
+</div>

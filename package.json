@@ -1,16 +1,20 @@
 {
-  "name": "kountdown",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev --port 3000 --host",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.10",
-    "astro": "^5.9.4",
-    "tailwindcss": "^4.1.10"
-  }
+	"name": "kountdown",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev --port 3000 --host",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.10",
+		"astro": "^5.9.4",
+		"tailwindcss": "^4.1.10"
+	},
+	"devDependencies": {
+		"prettier": "3.5.3",
+		"prettier-plugin-astro": "0.14.1"
+	}
 }

@@ -1,0 +1,19 @@
+---
+const { type = 'h1', ...props } = Astro.props;
+---
+
+{
+	type === 'h1' && (
+		<h1 class={props.className}>
+			<slot />
+		</h1>
+	)
+}
+
+{
+	type === 'p' && (
+		<p class={props.className}>
+			<slot />
+		</p>
+	)
+}
