@@ -8,6 +8,6 @@ const maxWidthClasses = {
 const maxWidthClass = maxWidthClasses[maxWidth] || 'max-w-[768px]';
 ---
 
-<div class={`m-[0_auto] w-full inner ${className} ${maxWidthClass}`}>
+<div class={`m-[0_auto] w-full inner ${className ? className : ''} ${maxWidthClass}`}>
 	<slot />
 </div>

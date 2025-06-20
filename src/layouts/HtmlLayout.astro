@@ -1,12 +1,29 @@
 ---
 import '@/styles/global.css';
+
+const ogTitle = 'Kountdown';
+const ogDescription = '2025년 10월 16일 카트라이더 드리프트 서비스 종료 카운트다운';
+const ogImage = '/images/og/img-og.png';
+const ogUrl = 'https://kountd0wn.netlify.app/';
 ---
 
 <!doctype html>
 <html lang="ko">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Kountdown is a countdown timer for events" />
+		<meta name="description" content={ogDescription} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={ogUrl} />
+		<meta property="og:title" content={ogTitle} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:description" content={ogDescription} />
+		<meta property="og:site_name" content={ogTitle} />
+		<meta property="og:image:width" content="800" />
+		<meta property="og:image:height" content="420" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={ogTitle} />
+		<meta name="twitter:description" content={ogDescription} />
+		<meta name="twitter:image" content={ogImage} />
 		<meta
 			name="keywords"
 			content="카트라이더, 카트라이더 클래식, 카트라이더 드리프트 섭종, 카트라이더 드리프트 서비스 종료, 카트라이더 부활, 카트 클래식, 카트라이더 서비스 종료"
@@ -16,7 +33,9 @@ import '@/styles/global.css';
 			name="viewport"
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 		/>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+		<link rel="shortcut icon" href="./favicon.ico" />
+		<link rel="icon" href="./favicon.ico" />
 		<link
 			rel="stylesheet"
 			as="style"
@@ -25,6 +44,18 @@ import '@/styles/global.css';
 		/>
 		<meta name="generator" content={Astro.generator} />
 		<title>Kountdown</title>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Q14CHWEXZ"></script>
+		<script>
+			// @ts-nocheck
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-4Q14CHWEXZ');
+		</script>
 	</head>
 	<body class="select-none">
 		<div class="h-screen">

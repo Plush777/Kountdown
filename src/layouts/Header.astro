@@ -7,13 +7,15 @@ import Button from '@/components/button/Button.astro';
 let isSoundOn = false;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-[50px_60px]">
+<header
+	class="fixed top-0 left-0 right-0 z-20 flex items-center justify-between p-[50px_60px] max-md:p-[30px_30px]"
+>
 	<Button
-		className="w-32 h-12 ml-auto flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+		className="max-md:w-24 w-32 h-12 ml-auto flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors border border-solid border-gray-950 max-md:h-9 max-md:text-sm"
 		id="bgm-toggle"
 		data-sound-state={isSoundOn}
 	>
-		<SvgWrapper className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+		<SvgWrapper className="size-5 max-md:size-4" viewBox="0 0 24 24" fill="currentColor">
 			{isSoundOn ? <SoundOn /> : <SoundOff />}
 		</SvgWrapper>
 		<span>BGM</span>
@@ -23,6 +25,11 @@ let isSoundOn = false;
 <script>
 	const toggleButton = document.getElementById('bgm-toggle');
 	let isSoundOn = toggleButton?.getAttribute('data-sound-state') === 'true';
+
+	// 오디오 객체 생성
+	const bgmAudio = new Audio('/audio/kd_lobby_acoustic.mp3');
+	bgmAudio.loop = true; // 반복 재생 설정
+	bgmAudio.volume = 0.5; // 볼륨 설정 (0.0 ~ 1.0)
 
 	toggleButton?.addEventListener('click', () => {
 		isSoundOn = !isSoundOn;
@@ -40,7 +47,14 @@ let isSoundOn = false;
 			}
 		}
 
-		// 여기에 실제 BGM 토글 로직을 추가할 수 있습니다
+		if (isSoundOn) {
+			bgmAudio.play().catch((error) => {
+				console.error('BGM 재생 실패:', error);
+			});
+		} else {
+			bgmAudio.pause();
+		}
+
 		console.log('BGM 상태:', isSoundOn ? '켜짐' : '꺼짐');
 	});
 </script>

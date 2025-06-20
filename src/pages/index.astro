@@ -9,7 +9,9 @@ import Wrapper from '@/layouts/Wrapper.astro';
 import Inner from '@/layouts/Inner.astro';
 import Text from '@/components/text/Text.astro';
 
-import { Fragment } from 'astro/jsx-runtime';
+const textClassName =
+	'text-center text-[#1d1d1d] break-keep leading-[1.4] text-5xl font-bold font-[ui-monospace] max-md:text-4xl [&&]:max-[500px]:text-2xl';
+const textPaddingClassName = 'max-md:p-[0_20px] [&&]:max-[500px]:p-[0_40px]';
 ---
 
 <HtmlLayout>
@@ -19,29 +21,30 @@ import { Fragment } from 'astro/jsx-runtime';
 	>
 		<BackgroundContainer>
 			<DdayCounter>
-				<Fragment slot="title">
-					<p
-						class="text-white text-center leading-16 text-5xl font-bold font-[Recipekorea] mb-[400px]"
-					>
-						Goodbye,<br />Kartrider Drift
-					</p>
-				</Fragment>
+				<p
+					slot="title"
+					class="text-white text-center leading-16 text-5xl font-bold font-[Recipekorea] mb-[400px] max-[500px]:text-[42px] max-[500px]:leading-14 max-[500px]:mb-[380px]"
+				>
+					Goodbye,<br />Kartrider Drift
+				</p>
 			</DdayCounter>
 		</BackgroundContainer>
 		<Wrapper
-			className=" relative z-10 rounded-[120px_120px_0_0] bg-white mt-[-120px] pt-[100px] pb-[20px]"
+			className="relative z-10 rounded-[120px_120px_0_0] bg-white mt-[-120px] pt-[80px] pb-[20px] max-md:pt-[60px] [&&]:max-[500px]:rounded-[90px_90px_0_0] [&&]:max-[375px]:rounded-[70px_70px_0_0]"
 		>
 			<Inner>
-				<div class="mb-16">
-					<Text
-						type="h1"
-						className="text-center text-[#1d1d1d] break-keep leading-[1.2] text-5xl font-bold font-[ui-monospace] mb-12"
-					>
-						카트라이더 드리프트 서비스 종료, 어떻게 생각하세요?
+				<div class="mb-32 max-md:mb-24">
+					<Text type="h1" className={`mb-12 max-[500px]:mb-8 ${textPaddingClassName}`}>
+						<Text type="p" className={textClassName}>카트라이더 드리프트 서비스 종료,</Text>
+
+						<Text type="p" className={textClassName}>그리고 카트라이더 클래식...</Text>
+
+						<Text type="p" className={textClassName}>어떻게 생각하세요?</Text>
 					</Text>
+
 					<Text
 						type="p"
-						className="text-center text-[#444] break-keep leading-[1.2] text-2xl font-[ui-monospace]"
+						className={`text-center text-[#444] break-keep leading-[1.2] text-2xl font-[ui-monospace] ${textPaddingClassName} [&&]:max-[500px]:text-base`}
 						>여러분들의 생각을 자유롭게 남겨주세요.</Text
 					>
 				</div>

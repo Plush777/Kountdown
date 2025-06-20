@@ -1,12 +1,12 @@
 ---
-
+const projectId = import.meta.env.PUBLIC_COMMENTBOX_PROJECT_ID;
 ---
 
-<div class="commentbox border border-solid p-5 border-gray-200 rounded-2xl"></div>
+<div class="commentbox border border-solid p-5 border-gray-200 rounded-2xl max-md:m-[0_20px]"></div>
 
-<script is:global src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
-<script>
+<script src="https://unpkg.com/commentbox.io/dist/commentBox.min.js"></script>
+<script define:vars={{ projectId }}>
 	window.addEventListener('DOMContentLoaded', () => {
-		commentBox('5679580119564288-proj');
+		commentBox(projectId);
 	});
 </script>
