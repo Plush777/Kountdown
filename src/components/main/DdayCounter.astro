@@ -32,9 +32,34 @@ const timeTextClassName = 'text-3xl max-[500px]:text-2xl';
 </div>
 
 <script>
+	// 성능 최적화를 위한 변수들
+	let animationId: number;
+	let lastUpdateTime = 0;
+	const UPDATE_INTERVAL = 1000; // 1초마다 업데이트
+
+	// DOM 요소들을 캐시
+	let ddayText: HTMLElement | null = null;
+	let ddayNumber: HTMLElement | null = null;
+	let timeDisplay: HTMLElement | null = null;
+
+	// 이전 값들을 저장하여 불필요한 DOM 업데이트 방지
+	let lastDdayText = '';
+	let lastDdayNumber = '';
+	let lastTimeDisplay = '';
+
 	function updateDday() {
+		const now = Date.now();
+
+		// 1초마다만 업데이트하도록 제한
+		if (now - lastUpdateTime < UPDATE_INTERVAL) {
+			animationId = requestAnimationFrame(updateDday);
+			return;
+		}
+
+		lastUpdateTime = now;
+
 		const targetDate = new Date('2025-10-16T00:00:00');
-		const now = new Date();
+		const currentDate = new Date();
 
 		// 날짜 차이 계산 (시간 제외)
 		const targetDateOnly = new Date(
@@ -42,44 +67,99 @@ const timeTextClassName = 'text-3xl max-[500px]:text-2xl';
 			targetDate.getMonth(),
 			targetDate.getDate()
 		);
-		const nowDateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+		const nowDateOnly = new Date(
+			currentDate.getFullYear(),
+			currentDate.getMonth(),
+			currentDate.getDate()
+		);
 
 		const timeDiff = targetDateOnly.getTime() - nowDateOnly.getTime();
 		const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-		const ddayText = document.getElementById('dday-text');
-		const ddayNumber = document.getElementById('dday-number');
+		// DOM 요소들이 아직 초기화되지 않았다면 초기화
+		if (!ddayText) ddayText = document.getElementById('dday-text');
+		if (!ddayNumber) ddayNumber = document.getElementById('dday-number');
+		if (!timeDisplay) timeDisplay = document.getElementById('time-display');
+
+		if (!ddayText || !ddayNumber || !timeDisplay) {
+			animationId = requestAnimationFrame(updateDday);
+			return;
+		}
+
+		// D-day 텍스트 업데이트 (변경된 경우에만)
+		let newDdayText = '';
+		let newDdayNumber = '';
 
 		if (daysDiff === 0) {
-			ddayText.textContent = 'D-DAY';
-			ddayNumber.textContent = '';
+			newDdayText = 'D-DAY';
+			newDdayNumber = '';
 		} else if (daysDiff > 0) {
-			ddayText.textContent = 'D-';
-			ddayNumber.textContent = daysDiff.toString();
+			newDdayText = 'D-';
+			newDdayNumber = daysDiff.toString();
 		} else {
-			ddayText.textContent = 'D+';
-			ddayNumber.textContent = Math.abs(daysDiff).toString();
+			newDdayText = 'D+';
+			newDdayNumber = Math.abs(daysDiff).toString();
+		}
+
+		// 값이 변경된 경우에만 DOM 업데이트
+		if (newDdayText !== lastDdayText) {
+			ddayText.textContent = newDdayText;
+			lastDdayText = newDdayText;
+		}
+
+		if (newDdayNumber !== lastDdayNumber) {
+			ddayNumber.textContent = newDdayNumber;
+			lastDdayNumber = newDdayNumber;
 		}
 
 		// 시간/분/초 계산
-		const totalTimeDiff = targetDate.getTime() - now.getTime();
+		const totalTimeDiff = targetDate.getTime() - currentDate.getTime();
 
+		let newTimeDisplay = '';
 		if (totalTimeDiff > 0) {
 			const hours = Math.floor((totalTimeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 			const minutes = Math.floor((totalTimeDiff % (1000 * 60 * 60)) / (1000 * 60));
 			const seconds = Math.floor((totalTimeDiff % (1000 * 60)) / 1000);
 
-			const timeDisplay = document.getElementById('time-display');
-			timeDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+			newTimeDisplay = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 		} else {
-			const timeDisplay = document.getElementById('time-display');
-			timeDisplay.textContent = '00:00:00';
+			newTimeDisplay = '00:00:00';
+		}
+
+		// 시간 표시가 변경된 경우에만 DOM 업데이트
+		if (newTimeDisplay !== lastTimeDisplay) {
+			timeDisplay.textContent = newTimeDisplay;
+			lastTimeDisplay = newTimeDisplay;
+		}
+
+		// 다음 프레임에서 다시 실행
+		animationId = requestAnimationFrame(updateDday);
+	}
+
+	// 페이지가 보이지 않을 때는 업데이트 중단
+	function handleVisibilityChange() {
+		if (document.hidden) {
+			if (animationId) {
+				cancelAnimationFrame(animationId);
+			}
+		} else {
+			// 페이지가 다시 보이면 즉시 업데이트
+			lastUpdateTime = 0;
+			updateDday();
 		}
 	}
 
 	// 초기 실행
 	updateDday();
 
-	// 1초마다 업데이트
-	setInterval(updateDday, 1000);
+	// 페이지 가시성 변경 이벤트 리스너 추가
+	document.addEventListener('visibilitychange', handleVisibilityChange);
+
+	// 컴포넌트가 언마운트될 때 정리
+	document.addEventListener('astro:page-load', () => {
+		if (animationId) {
+			cancelAnimationFrame(animationId);
+		}
+		document.removeEventListener('visibilitychange', handleVisibilityChange);
+	});
 </script>
